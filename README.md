@@ -2273,16 +2273,6 @@ LoadingFrame.Frame.Frame.Subtitle.TextTransparency = 1
 LoadingFrame.Version.TextTransparency = 1
 LoadingFrame.Frame.ImageLabel.ImageTransparency = 1
 
--- Adicionar fundo de imagem
-local BackgroundImage = Instance.new("ImageLabel")
-BackgroundImage.Name = "BackgroundImage"
-BackgroundImage.Parent = Main
-BackgroundImage.Image = "rbxassetid://128134628708017" .. WindowSettings.BackgroundID  -- (Novo ID da imagem de fundo)
-BackgroundImage.Size = UDim2.fromScale(1, 1)
-BackgroundImage.Position = UDim2.fromScale(0, 0)
-BackgroundImage.BackgroundTransparency = 1
-BackgroundImage.ImageTransparency = 1  -- Você pode mudar a transparência se quiser
-BackgroundImage.ZIndex = 0  -- Fica atrás de todos os elementos
 
 	tween(Elements.Parent, {BackgroundTransparency = 1})
 	Elements.Parent.Visible = false
