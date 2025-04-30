@@ -2258,34 +2258,19 @@ function Luna:CreateWindow(WindowSettings)
 
 	local Passthrough = false
 
-local Window = { Bind = Enum.KeyCode.K, CurrentTab = nil, State = true, Size = false, Settings = nil }
+	local Window = { Bind = Enum.KeyCode.K, CurrentTab = nil, State = true, Size = false, Settings = nil }
 
--- Configuração inicial
 Main.Title.Title.Text = WindowSettings.Name
 Main.Title.subtitle.Text = WindowSettings.Subtitle
 Main.Logo.Image = "rbxassetid://" .. WindowSettings.LogoID
 Main.Visible = true
+
+Main.BackgroundColor3 = Color3.fromRGB(128, 0, 128) -- Roxo
+Main.BackgroundTransparency = 0 -- Deixa o fundo visível
+
 Main.Size = MainSize
 Main.Size = UDim2.fromOffset(Main.Size.X.Offset - 70, Main.Size.Y.Offset - 55)
 Main.Parent.ShadowHolder.Size = Main.Size
-
--- Adiciona uma imagem de fundo ao Main
-local BackgroundImage = Instance.new("ImageLabel")
-BackgroundImage.Name = "BackgroundImage"
-BackgroundImage.Parent = Main
-BackgroundImage.Size = UDim2.new(1, 0, 1, 0)
-BackgroundImage.Position = UDim2.new(0, 0, 0, 0)
-BackgroundImage.BackgroundTransparency = 1
-BackgroundImage.Image = "rbxassetid://77350042728665" -- Substitua pelo ID da imagem desejada
-BackgroundImage.ImageTransparency = 0
-BackgroundImage.ZIndex = 0
-
--- Garantir que os elementos fiquem à frente
-Main.Title.ZIndex = 1
-Main.Logo.ZIndex = 1
-Main.Controls.ZIndex = 1
-
--- Loading frame invisível inicialmente
 LoadingFrame.Frame.Frame.Title.TextTransparency = 1
 LoadingFrame.Frame.Frame.Subtitle.TextTransparency = 1
 LoadingFrame.Version.TextTransparency = 1
@@ -2294,22 +2279,18 @@ LoadingFrame.Frame.ImageLabel.ImageTransparency = 1
 tween(Elements.Parent, {BackgroundTransparency = 1})
 Elements.Parent.Visible = false
 
--- Configura textos de loading
 LoadingFrame.Frame.Frame.Title.Text = WindowSettings.LoadingTitle
 LoadingFrame.Frame.Frame.Subtitle.Text = WindowSettings.LoadingSubtitle
-LoadingFrame.Version.Text = LoadingFrame.Frame.Frame.Title.Text == "Luna Interface Suite" and Release or "Slayer Hub"
+LoadingFrame.Version.Text = LoadingFrame.Frame.Frame.Title.Text == "Luna Interface Suite" and Release or "Slayer Team"
 
--- Mostra dados do jogador
 Navigation.Player.icon.ImageLabel.Image = Players:GetUserThumbnailAsync(Players.LocalPlayer.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size48x48)
 Navigation.Player.Namez.Text = Players.LocalPlayer.DisplayName
 Navigation.Player.TextLabel.Text = Players.LocalPlayer.Name
 
--- Oculta os controles inicialmente
 for i,v in pairs(Main.Controls:GetChildren()) do
 	v.Visible = false
 end
 
--- Sincroniza sombra com posição e tamanho
 Main:GetPropertyChangedSignal("Position"):Connect(function()
 	Main.Parent.ShadowHolder.Position = Main.Position
 end)
@@ -2317,11 +2298,9 @@ Main:GetPropertyChangedSignal("Size"):Connect(function()
 	Main.Parent.ShadowHolder.Size = Main.Size
 end)
 
--- Mostra a tela de carregamento
 LoadingFrame.Visible = true
 
---[[ Sistema de configuração (opcional)
-pcall(function()
+--[[ pcall(function()
 	if not isfolder(ConfigurationFolder) then
 		makefolder(ConfigurationFolder)
 	end
@@ -2342,7 +2321,6 @@ pcall(function()
 end)
 ]]
 
--- Ativa a interface
 LunaUI.Enabled = true
 
 	BlurModule(Main)
@@ -7005,4 +6983,3 @@ end
     t1:CreateDropdown({Description = "Special Type - Player", Callback = "", SpecialType = "Player"})
 end]]--
 return Luna
-
