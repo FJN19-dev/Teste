@@ -1,102 +1,113 @@
+-- KeyLibSimple.lua
+local KeyLibSimple = {}
 
--- NovaLib - Biblioteca para criação de UI no Roblox
-local NovaLib = {}
+function KeyLibSimple:Start(config)
+    assert(type(config) == "table", "Configuração obrigatória")
+    assert(type(config.Keys) == "table", "Lista de Keys obrigatória")
+    assert(type(config.Script) == "string", "URL do script obrigatório")
 
-function NovaLib:CreateWindow(title)
-    local Players = game:GetService("Players")
-    local player = Players.LocalPlayer
+    -- Criar ScreenGui
+    local screenGui = Instance.new("ScreenGui")
+    screenGui.Name = "KeyLibSimpleGui"
+    screenGui.ResetOnSpawn = false
+    screenGui.Parent = game:GetService("CoreGui")
 
-    -- Criação do ScreenGui e Frame
-    local ScreenGui = Instance.new("ScreenGui", game:GetService("CoreGui"))
-    ScreenGui.Name = "NovaUI"
+    -- Fundo full screen usando ImageLabel para mostrar imagem do Roblox pelo Id
+    local background = Instance.new("ImageLabel")
+    background.Size = UDim2.new(1, 0, 1, 0)
+    background.Position = UDim2.new(0, 0, 0, 0)
+    background.Image = "rbxassetid://77350042728665" .. tostring(config.BackgroundImageId or 0)
+    background.BackgroundTransparency = 0
+    background.ScaleType = Enum.ScaleType.Crop
+    background.Parent = screenGui
 
-    local Frame = Instance.new("Frame", ScreenGui)
-    Frame.Size = UDim2.new(0, 500, 0, 500)
-    Frame.Position = UDim2.new(0.5, -250, 0.5, -250)
-    Frame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-    Frame.Active = true
-    Frame.Draggable = true
+    -- Texto central no topo
+    local titleHub = Instance.new("TextLabel")
+    titleHub.Size = UDim2.new(1, 0, 0, 60)
+    titleHub.Position = UDim2.new(0, 0, 0, 20)
+    titleHub.BackgroundTransparency = 1
+    titleHub.TextColor3 = config.TitleColor or Color3.fromRGB(255, 255, 255)
+    titleHub.Font = Enum.Font.GothamBold
+    titleHub.TextSize = 40
+    titleHub.Text = config.HubName or "Slayer Hub"
+    titleHub.TextStrokeTransparency = 0.75
+    titleHub.Parent = screenGui
 
-    -- Título da Interface
-    local Title = Instance.new("TextLabel", Frame)
-    Title.Text = "Slayer Hub"
-    Title.Size = UDim2.new(1, 0, 0, 40)
-    Title.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-    Title.TextColor3 = Color3.fromRGB(255, 255, 255)
-    Title.Font = Enum.Font.GothamBold
-    Title.TextSize = 18
+    -- Frame central para input
+    local frame = Instance.new("Frame")
+    frame.Size = UDim2.new(0, 300, 0, 150)
+    frame.Position = UDim2.new(0.5, -150, 0.5, -75)
+    frame.BackgroundColor3 = config.FrameColor or Color3.fromRGB(30, 30, 30)
+    frame.BorderSizePixel = 0
+    frame.Parent = screenGui
 
-    -- Imagem do Logo
-    local LogoImage = Instance.new("ImageLabel", Frame)
-    LogoImage.Size = UDim2.new(0, 100, 0, 100)
-    LogoImage.Position = UDim2.new(0.5, -50, 0, 50)
-    LogoImage.Image = "rbxassetid://91062721750487"  -- Substitua pelo ID da sua imagem
-    LogoImage.BackgroundTransparency = 1
+    -- Título do frame
+    local title = Instance.new("TextLabel")
+    title.Size = UDim2.new(1, 0, 0, 40)
+    title.BackgroundTransparency = 1
+    title.TextColor3 = config.TitleColor or Color3.fromRGB(255, 255, 255)
+    title.Font = Enum.Font.GothamBold
+    title.TextSize = 24
+    title.Text = config.Title or "Sistema de Key"
+    title.Parent = frame
 
-    -- Tela de Carregamento
-    local LoadingFrame = Instance.new("Frame", ScreenGui)
-    LoadingFrame.Size = UDim2.new(0, 500, 0, 500)
-    LoadingFrame.Position = UDim2.new(0.5, -250, 0.5, -250)
-    LoadingFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-    LoadingFrame.Visible = true
+    -- TextBox para digitar a key
+    local keyBox = Instance.new("TextBox")
+    keyBox.Size = UDim2.new(0.9, 0, 0, 40)
+    keyBox.Position = UDim2.new(0.05, 0, 0, 50)
+    keyBox.PlaceholderText = config.Placeholder or "Digite a chave aqui"
+    keyBox.ClearTextOnFocus = false
+    keyBox.Text = ""
+    keyBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+    keyBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    keyBox.Parent = frame
 
-    local LoadingLabel = Instance.new("TextLabel", LoadingFrame)
-    LoadingLabel.Size = UDim2.new(1, 0, 0, 40)
-    LoadingLabel.Position = UDim2.new(0, 0, 0, 10)
-    LoadingLabel.BackgroundTransparency = 1
-    LoadingLabel.Text = "Carregando..."
-    LoadingLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-    LoadingLabel.Font = Enum.Font.GothamBold
-    LoadingLabel.TextSize = 18
+    -- Botão confirmar
+    local button = Instance.new("TextButton")
+    button.Size = UDim2.new(0.5, 0, 0, 40)
+    button.Position = UDim2.new(0.25, 0, 0, 100)
+    button.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+    button.TextColor3 = Color3.fromRGB(255, 255, 255)
+    button.Text = config.ButtonText or "Confirmar"
+    button.Parent = frame
 
-    -- Barra de Carregamento
-    local ProgressBarBackground = Instance.new("Frame", LoadingFrame)
-    ProgressBarBackground.Size = UDim2.new(0.8, 0, 0, 20)
-    ProgressBarBackground.Position = UDim2.new(0.5, -160, 0, 100)
-    ProgressBarBackground.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    -- Texto de mensagem (erro/sucesso)
+    local msgLabel = Instance.new("TextLabel")
+    msgLabel.Size = UDim2.new(1, 0, 0, 30)
+    msgLabel.Position = UDim2.new(0, 0, 0, 140)
+    msgLabel.BackgroundTransparency = 1
+    msgLabel.TextColor3 = Color3.fromRGB(255, 100, 100)
+    msgLabel.Font = Enum.Font.Gotham
+    msgLabel.TextSize = 18
+    msgLabel.Text = ""
+    msgLabel.Parent = frame
 
-    local ProgressBar = Instance.new("Frame", ProgressBarBackground)
-    ProgressBar.Size = UDim2.new(0, 0, 1, 0)
-    ProgressBar.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
-
-    -- Função de Carregamento
-    local function loadProgress()
-        for i = 1, 100 do
-            wait(0.05)
-            ProgressBar.Size = UDim2.new(i / 100, 0, 1, 0)
+    -- Função para validar key
+    local function ValidateKey(input)
+        for _, key in ipairs(config.Keys) do
+            if input == key then
+                return true
+            end
         end
-        LoadingFrame.Visible = false  -- Esconde a tela de carregamento após o fim
-        Frame.Visible = true  -- Mostra a interface após o carregamento
+        return false
     end
 
-    -- Iniciar o carregamento
-    loadProgress()
-
-    -- Container da UI
-    local Container = Instance.new("ScrollingFrame", Frame)
-    Container.Size = UDim2.new(1, -20, 1, -85)
-    Container.Position = UDim2.new(0, 10, 0, 85)
-    Container.BackgroundTransparency = 1
-    Container.CanvasSize = UDim2.new(0, 0, 5, 0)
-    Container.ScrollBarThickness = 5
-
-    local layout = Instance.new("UIListLayout", Container)
-    layout.Padding = UDim.new(0, 8)
-
-    -- Função para adicionar uma imagem de fundo
-    function Frame:SetBackgroundImage(imageId)
-        local BackgroundImage = Instance.new("ImageLabel", Frame)
-        BackgroundImage.Size = UDim2.new(1, 0, 1, 0)
-        BackgroundImage.Position = UDim2.new(0, 0, 0, 0)
-        BackgroundImage.Image = imageId  -- Define a imagem de fundo
-        BackgroundImage.BackgroundTransparency = 1
-    end
-
-    -- Exemplo de adicionar uma imagem de fundo
-    -- Defina o ID da sua imagem de fundo
-    Frame:SetBackgroundImage("rbxassetid://77350042728665")
-
-    return ScreenGui
+    -- Clique no botão
+    button.MouseButton1Click:Connect(function()
+        local inputKey = keyBox.Text
+        if ValidateKey(inputKey) then
+            msgLabel.TextColor3 = Color3.fromRGB(100, 255, 100)
+            msgLabel.Text = "Chave válida! Carregando..."
+            task.spawn(function()
+                task.wait(1)
+                screenGui:Destroy()
+                loadstring(game:HttpGet(config.Script))()
+            end)
+        else
+            msgLabel.TextColor3 = Color3.fromRGB(255, 100, 100)
+            msgLabel.Text = "Chave inválida. Tente novamente."
+        end
+    end)
 end
 
-return NovaLib
+return KeyLibSimple
