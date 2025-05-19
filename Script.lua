@@ -474,6 +474,36 @@ function OrionLib:Init()
 	end	
 end	
 
+-- Criar ScreenGui e botão estilizado
+local player = game.Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "ToggleOrionButtonGui"
+ScreenGui.Parent = playerGui
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+local ImageButton = Instance.new("ImageButton")
+ImageButton.Name = "ToggleOrionButton"
+ImageButton.Parent = ScreenGui
+ImageButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+ImageButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+ImageButton.BorderSizePixel = 0
+ImageButton.Position = UDim2.new(0.908, 0, 0.07, 0)
+ImageButton.Size = UDim2.new(0, 45, 0, 45)
+ImageButton.Image = "rbxassetid://91062721750487" -- seu ícone personalizado
+
+local UICorner = Instance.new("UICorner")
+UICorner.Parent = ImageButton
+
+-- Função para abrir/fechar a interface Orion
+ImageButton.MouseButton1Click:Connect(function()
+    local orionGui = playerGui:FindFirstChild("Orion") or game.CoreGui:FindFirstChild("Orion")
+    if orionGui then
+        orionGui.Enabled = not orionGui.Enabled
+    end
+end)
+
 function OrionLib:MakeWindow(WindowConfig)
 	local FirstTab = true
 	local Minimized = false
@@ -1835,22 +1865,6 @@ function OrionLib:MakeWindow(WindowConfig)
 	
 	return Functions;
 end   
-
-local ToggleButton = Instance.new("ImageButton")
-ToggleButton.Name = "OrionToggleButton"
-ToggleButton.Size = UDim2.new(0, 40, 0, 40)
-ToggleButton.Position = UDim2.new(0, 10, 0, 10)
-ToggleButton.BackgroundTransparency = 1
-ToggleButton.Image = "rbxassetid://91062721750487"
-ToggleButton.ZIndex = 9999
-ToggleButton.Parent = game.CoreGui
-
-local function ToggleOrion()
-    local orionUI = game.CoreGui:FindFirstChild("Orion")
-    if orionUI then
-        orionUI.Enabled = not orionUI.Enabled
-    end
-end
 
 ToggleButton.MouseButton1Click:Connect(ToggleOrion)
 
