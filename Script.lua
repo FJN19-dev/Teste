@@ -12,15 +12,23 @@ local OrionLib = {
 	Flags = {},
 	Themes = {
 		Default = {
-			Main = Color3.fromRGB(25, 25, 25),
-			Second = Color3.fromRGB(32, 32, 32),
-			Stroke = Color3.fromRGB(60, 60, 60),
-			Divider = Color3.fromRGB(60, 60, 60),
-			Text = Color3.fromRGB(240, 240, 240),
-			TextDark = Color3.fromRGB(150, 150, 150)
+			Main = Color3.fromRGB(30, 30, 30),       -- Fundo escuro suave, menos pesado
+			Second = Color3.fromRGB(45, 45, 45),     -- Fundo secundário para painéis
+			Stroke = Color3.fromRGB(75, 75, 75),     -- Contornos e bordas
+			Divider = Color3.fromRGB(70, 70, 70),    -- Linhas divisórias sutis
+			Text = Color3.fromRGB(230, 230, 230),    -- Texto branco suave
+			TextDark = Color3.fromRGB(160, 160, 160) -- Texto cinza para legendas ou menos destaque
+		},
+		Amestrys = {
+			Main = Color3.fromRGB(38, 0, 76),        -- Roxo escuro elegante
+			Second = Color3.fromRGB(93, 30, 145),    -- Lilás escuro
+			Stroke = Color3.fromRGB(134, 75, 192),   -- Roxo vibrante para bordas
+			Divider = Color3.fromRGB(112, 56, 168),  -- Divisor roxo suave
+			Text = Color3.fromRGB(220, 210, 255),    -- Texto lilás claro
+			TextDark = Color3.fromRGB(163, 143, 195) -- Texto lilás médio para menos destaque
 		}
 	},
-	SelectedTheme = "Default",
+	SelectedTheme = "Default", -- Você pode trocar para "Amestrys" quando quiser
 	Folder = nil,
 	SaveCfg = false
 }
@@ -53,65 +61,6 @@ else
 	Orion.Parent = gethui() or game.CoreGui
 end
 
--- Botão de Toggle Orion local
-local ImageButton = Instance.new("ImageButton")
-local UICorner = Instance.new("UICorner")
-
-ImageButton.Name = "ToggleButton"
-ImageButton.Parent = Orion
-ImageButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-ImageButton.Position = UDim2.new(0.02, 0, 0.07, 0)
-ImageButton.Size = UDim2.new(0, 45, 0, 45)
-ImageButton.Image = "rbxassetid://9106272175" -- Substitua pelo ID desejado
-ImageButton.ZIndex = 9999
-
-UICorner.CornerRadius = UDim.new(0, 12)
-UICorner.Parent = ImageButton
-
--- Lógica de abrir/fechar os frames
-local visivel = true
-ImageButton.MouseButton1Click:Connect(function()
-	visivel = not visivel
-	for _, v in pairs(Orion:GetChildren()) do
-		if (v:IsA("Frame") or v:IsA("ScrollingFrame")) and v.Name ~= "ToggleButton" then
-			v.Visible = visivel
-		end
-	end
-end)
-
--- Arrastar botão
-local UIS = game:GetService("UserInputService")
-local dragging, dragInput, dragStart, startPos
-
-ImageButton.InputBegan:Connect(function(input)
-	if input.UserInputType == Enum.UserInputType.MouseButton1 then
-		dragging = true
-		dragStart = input.Position
-		startPos = ImageButton.Position
-
-		input.Changed:Connect(function()
-			if input.UserInputState == Enum.UserInputState.End then
-				dragging = false
-			end
-		end)
-	end
-end)
-
-ImageButton.InputChanged:Connect(function(input)
-	if input.UserInputType == Enum.UserInputType.MouseMovement then
-		dragInput = input
-	end
-end)
-
-UIS.InputChanged:Connect(function(input)
-	if input == dragInput and dragging then
-		local delta = input.Position - dragStart
-		ImageButton.Position = UDim2.new(
-			startPos.X.Scale, startPos.X.Offset + delta.X,
-			startPos.Y.Scale, startPos.Y.Offset + delta.Y
-		)
-	end
-end)
 
 if gethui then
 	for _, Interface in ipairs(gethui():GetChildren()) do
