@@ -1,32 +1,112 @@
 <!DOCTYPE html>
-<html lang="pt‑BR">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF‑8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mobile Executors ┃ Slayer Hub</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
-    body { background:radial-gradient(circle at center,#1c0038,#0b0016); color:#fff; font-family:'Poppins',sans-serif; text-align:center; padding:60px 20px; }
-    .btn {
-      display:inline-block; margin:20px auto; padding:12px 25px;
-      background:linear-gradient(90deg,#7a00ff,#b96bff); border:none; border-radius:8px;
-      color:#fff; font-weight:600; text-decoration:none; transition:transform .2s,box‑shadow .3s;
-    }
-    .btn:hover { transform:scale(1.05); box‑shadow:0 0 15px #a44fff; }
-    h1 { font-size:2.5rem; color:#b96bff; margin-bottom:20px; }
-    p { font-size:1.1rem; color:#d7b6ff; margin-bottom:40px; }
-    footer { margin-top:60px; color:#9b30ff; font-size:.9rem; }
-    footer span { color:#b96bff; font-weight:600; }
-  </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Mobile Executors ┃ Slayer Hub</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+body {
+  background: radial-gradient(circle at center,#1c0038,#0b0016);
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+  padding: 60px 20px;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: #b96bff;
+  margin-bottom: 20px;
+  animation: fadeIn 1s ease forwards;
+  opacity: 0;
+}
+
+p {
+  font-size: 1.1rem;
+  color: #d7b6ff;
+  margin-bottom: 40px;
+  animation: fadeIn 1.2s ease forwards;
+  opacity: 0;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 12px auto;
+  padding: 12px 25px;
+  background: linear-gradient(90deg,#7a00ff,#b96bff);
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform .2s, box-shadow .3s;
+  opacity: 0;
+  animation: fadeIn 1.5s ease forwards;
+}
+
+.btn img {
+  width: 24px;
+  height: 24px;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px #a44fff;
+}
+
+footer {
+  margin-top: 60px;
+  color: #9b30ff;
+  font-size: .9rem;
+  animation: fadeIn 1.7s ease forwards;
+  opacity: 0;
+}
+
+footer span { color: #b96bff; font-weight: 600; }
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+@media(max-width:600px){
+  h1 { font-size: 2rem; }
+  p { font-size: 1rem; }
+  .btn { width: 90%; justify-content: flex-start; padding: 12px 20px; }
+}
+</style>
 </head>
 <body>
-  <h1>Executores Mobile</h1>
-  <p>Escolha abaixo o executor para seu dispositivo móvel:</p>
-  <a class="btn" href="https://delta.filenetwork.vip/android.html" target="_blank" rel="noopener">📱 Delta</a><br>
-  <a class="btn" href="https://wrdcdn.net/r/54921/1761378216369/krnl_release_2.695.956_2025.10.20_52.apk" target="_blank" rel="noopener">📱 KRNL</a><br>
-  <a class="btn" href="https://fluxus.mobi/apk" target="_blank" rel="noopener">📱 Fluxus</a><br>                                                                                                                                                                                                                                                                                                                                                                                                                  
-  <a class="btn" href="https://gofile.io/d/o2uJj3" target="_blank" rel="noopener">📱 Codex</a><br>
-  <a class="btn" href="https://www.mediafire.com/file/6q6vmnynk7gu2uv/Cryptic_2.695.956_APK.apk/file" target="_blank" rel="noopener">📱 Cryptic</a><br>
-  <footer>by <span>Developer FJN</span></footer>
+
+<h1>Executores Mobile</h1>
+<p>Escolha abaixo o executor para seu dispositivo móvel:</p>
+
+<a class="btn" href="https://delta.filenetwork.vip/android.html" target="_blank" rel="noopener">
+  <img src="https://miro.medium.com/v2/resize:fit:800/1*GwbJsZ9y1rQihUgwxZNZdw.jpeg" alt="Delta">  Delta
+</a><br>
+
+<a class="btn" href="https://wrdcdn.net/r/54921/1761378216369/krnl_release_2.695.956_2025.10.20_52.apk" target="_blank" rel="noopener">
+  <img src="https://krnl-executor.org/wp-content/uploads/2025/03/KRNL-Executor.png" alt="KRNL">  KRNL
+</a><br>
+
+<a class="btn" href="https://fluxus.mobi/apk" target="_blank" rel="noopener">
+  <img src="https://tse1.mm.bing.net/th/id/OIP.r4TF90K4RKEBtxw4ihrsBgAAAA?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Fluxus">  Fluxus
+</a><br>
+
+<a class="btn" href="https://gofile.io/d/o2uJj3" target="_blank" rel="noopener">
+  <img src="https://www.moosoft.com/wp-content/uploads/2025/02/CodeX-Executor-logo.webp" alt="Codex">  Codex
+</a><br>
+
+<a class="btn" href="https://www.mediafire.com/file/6q6vmnynk7gu2uv/Cryptic_2.695.956_APK.apk/file" target="_blank" rel="noopener">
+  <img src="https://krnl-executor.org/wp-content/uploads/2025/03/Cryptic-Executor.webp" alt="Cryptic">  Cryptic
+</a><br>
+
+<footer>by <span>Developer FJN</span></footer>
+
 </body>
 </html>
+
