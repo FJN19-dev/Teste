@@ -1,1 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Jogos ┃ Slayer Hub</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+body{
+  margin:0;
+  font-family:'Poppins', sans-serif;
+  background: radial-gradient(circle at center,#1c0038,#0b0016);
+  color:#fff;
+  text-align:center;
+  padding:40px 20px;
+}
+
+h1{
+  color:#b96bff;
+  margin-bottom:30px;
+}
+
+.games-container{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:25px;
+}
+
+.game-card{
+  background: rgba(40,0,80,0.6);
+  border: 2px solid #7a00ff;
+  border-radius: 12px;
+  width: 150px;
+  padding: 15px;
+  transition: transform .3s, box-shadow .3s;
+}
+
+.game-card:hover{
+  transform: scale(1.05);
+  box-shadow: 0 0 15px #b96bff;
+}
+
+.game-card img{
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.game-card span{
+  display:block;
+  font-weight:600;
+  color:#fff;
+  font-size:1rem;
+}
+@media(max-width:600px){
+  .game-card{
+    width:120px;
+    padding:10px;
+  }
+  .game-card img{
+    height:120px;
+  }
+}
+</style>
+</head>
+<body>
+
+<h1>Jogos</h1>
+<div class="games-container" id="gamesContainer">
+  <!-- Cards serão adicionados pelo JS -->
+</div>
+
+<script>
+// Lista de jogos
+const games = [
+  {name:"Blox Fruits", img:"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.roblox.com%2Fpt%2Fgames%2F7449423635%2FBlox-Fruits-Third-Sea&psig=AOvVaw3BX6W37VAthrUERl9r7qWL&ust=1762124546966000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCKjRhc2H0pADFQAAAAAdAAAAABAE"},
+  {name:"Fisch", img:"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.eurogamer.pt%2Froblox-codigos-fisch&psig=AOvVaw29SjY1wGgP7ve22xvrr83h&ust=1762124770111000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCPjUwreI0pADFQAAAAAdAAAAABAE"},
+  {name:"Steel a Brainrot", img:"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.roblox.com%2Fpt%2Fgames%2F109983668079237%2FSteal-a-Brainrot&psig=AOvVaw1comGDSnFIigc7u711WvFW&ust=1762124838902000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCOig_diI0pADFQAAAAAdAAAAABAE"},
+  {name:"Blue Lock Rivais", img:"https://www.google.com/imgres?q=blue%20lock%20rivals&imgurl=https%3A%2F%2Fi.ytimg.com%2Fvi%2F9yklv95V_bs%2Fhq720.jpg%3Fsqp%3D-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD%26rs%3DAOn4CLACF12C4m0KSy3DgKFsQnHVstjwJQ&imgrefurl=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D9yklv95V_bs&docid=dNTG3OOFK_J7fM&tbnid=RCNmFd_ouDtE5M&vet=12ahUKEwjL3PqIidKQAxVNK7kGHchIBZsQM3oECCYQAA..i&w=686&h=386&hcb=2&ved=2ahUKEwjL3PqIidKQAxVNK7kGHchIBZsQM3oECCYQAA"}
+];
+
+// Seleciona o container
+const container = document.getElementById('gamesContainer');
+
+// Cria os cards dinamicamente
+games.forEach(game => {
+  const card = document.createElement('div');
+  card.classList.add('game-card');
+  
+  const img = document.createElement('img');
+  img.src = game.img;
+  img.alt = game.name;
+  
+  const span = document.createElement('span');
+  span.textContent = game.name;
+  
+  card.appendChild(img);
+  card.appendChild(span);
+  
+  container.appendChild(card);
+});
+</script>
+
+</body>
+</html>
 
