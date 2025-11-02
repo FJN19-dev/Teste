@@ -35,6 +35,8 @@ h1{
   width: 150px;
   padding: 15px;
   transition: transform .3s, box-shadow .3s;
+  text-decoration: none;
+  color: #fff;
 }
 
 .game-card:hover{
@@ -75,21 +77,21 @@ h1{
 </div>
 
 <script>
-// Lista de jogos
+// Lista de jogos que redirecionam para outras páginas do site
 const games = [
-  {name:"Blox Fruits", img:"https://media.discordapp.net/attachments/1345800682330132540/1434320600691900490/download.jpg?ex=6907e6a7&is=69069527&hm=57a077f58b631fc6a39aebac3ff66ae389be4c3db6b15410259eca7c7caa0d4c&=&format=webp"},
-  {name:"Fisch", img:"https://media.discordapp.net/attachments/1345800682330132540/1434320600389779536/download_1.jpg?ex=6907e6a7&is=69069527&hm=6c2e522c965afc2c226b7532f3d0b0a940a70f58855ac4332ac6f8dd9d27d365&=&format=webp"},
-  {name:"Steel a Brainrot", img:"https://media.discordapp.net/attachments/1345800682330132540/1434320600083468338/download_2.jpg?ex=6907e6a7&is=69069527&hm=ae5d9f9f3eed9852303c20fab625963b5832da46f8c9b669b5e18ed6a5f78ec1&=&format=webp"},
-  {name:"Blue Lock Rivais", img:"https://cdn.discordapp.com/attachments/1345800682330132540/1434319906836451408/hq720.jpg?ex=6907e602&is=69069482&hm=2de77e886d3626db38c2d0a49dc8123c31f2a9615f1d7438426abbb59009d2b0&"}
+  { name:"Blox Fruits", img:"https://tr.rbxcdn.com/4e18f4c3fd6e51b6f0481fa7c548b2d4/768/432/Image/Png", page:"bloxfruits.html" },
+  { name:"Fisch", img:"https://tr.rbxcdn.com/2ec82076f0aef64b17a8a8cb03b44a46/768/432/Image/Png", page:"fisch.html" },
+  { name:"Steal a Brainrot", img:"https://tr.rbxcdn.com/1c786db19b6463c4c63e3e3b87a8a3ac/768/432/Image/Png", page:"brainrot.html" },
+  { name:"Blue Lock Rivals", img:"https://cdn.discordapp.com/attachments/1345800682330132540/1434319906836451408/hq720.jpg", page:"bluelock.html" }
 ];
 
-// Seleciona o container
 const container = document.getElementById('gamesContainer');
 
 // Cria os cards dinamicamente
 games.forEach(game => {
-  const card = document.createElement('div');
+  const card = document.createElement('a');
   card.classList.add('game-card');
+  card.href = game.page;
   
   const img = document.createElement('img');
   img.src = game.img;
